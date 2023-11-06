@@ -14,6 +14,7 @@ resource "azurerm_cognitive_account" "service" {
   resource_group_name = var.resource_group_name
   kind                = var.settings.kind
   sku_name            = var.settings.sku_name
+  local_auth_enabled  = var.settings.local_auth_enabled
 
   qna_runtime_endpoint = var.settings.kind == "QnAMaker" ? var.settings.qna_runtime_endpoint : try(var.settings.qna_runtime_endpoint, null)
 
