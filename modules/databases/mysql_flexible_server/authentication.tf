@@ -1,5 +1,5 @@
 resource "azurerm_mysql_flexible_server_active_directory_administrator" "mysql" {
-  for_each = try(var.settings.mysql_aad_admin, {})
+  for_each = try(var.settings.mysql_aad_admins, {})
 
 
   server_id   = azurerm_mysql_flexible_server.mysql.id
