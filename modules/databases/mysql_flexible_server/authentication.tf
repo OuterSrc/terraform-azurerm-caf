@@ -3,8 +3,8 @@ resource "azurerm_mysql_flexible_server_active_directory_administrator" "mysql" 
 
 
   server_id   = azurerm_mysql_flexible_server.mysql.id
-  identity_id = var.settings.mysql_aad_admin.managed_identity_id
+  identity_id = each.value.managed_identity_id
   login       = "sqladmin"
-  object_id   = var.settings.mysql_aad_admin.admin_group_object_id
-  tenant_id   = var.settings.mysql_aad_admin.admin_group_tenant_id
+  object_id   = each.value.admin_group_object_id
+  tenant_id   = each.value.admin_group_tenant_id
 }
