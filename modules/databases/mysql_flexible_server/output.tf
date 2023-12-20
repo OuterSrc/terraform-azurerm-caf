@@ -65,12 +65,3 @@ output "resource_group_name" {
   description = "Name of the Resource Group where the resource exists."
   value       = var.resource_group_name
 }
-
-output "resource_group_name" {
-  value = local.resource_group_name
-}
-
-output "location" {
-  value = local.location
-}
-
