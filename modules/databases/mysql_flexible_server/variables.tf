@@ -32,3 +32,21 @@ variable "location" {
   description = "(Required) Specifies the supported Azure location where to create the resource. Changing this forces a new resource to be created."
   type        = string
 }
+
+variable "private_endpoints" {}
+
+variable "private_dns" {
+  default = {}
+}
+
+variable "base_tags" {
+  description = "Base tags for the resource to be inherited from the resource group."
+  type        = bool
+}
+
+variable "vnets" {}
+
+variable "location" {
+  description = "location of the resource if different from the resource group."
+  default     = null
+}
