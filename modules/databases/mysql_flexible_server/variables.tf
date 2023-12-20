@@ -47,3 +47,4 @@ variable "base_tags" {
 }
 
 variable "resource_groups" {}
+variable "resource_group" {}
