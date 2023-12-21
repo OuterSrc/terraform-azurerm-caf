@@ -1,6 +1,6 @@
 
 output "mysql_flexible_servers" {
-  value = module.mysql_flexible_server
+  value = module.mysql_flexible_servers
 }
 
 module "mysql_flexible_servers" {
