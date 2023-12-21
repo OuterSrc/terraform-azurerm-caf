@@ -11,7 +11,7 @@ module "mysql_flexible_servers" {
   name                = try(each.value.name, each.key)
   private_dns         = var.private_dns
   resource_group_name = try(var.resource_groups[each.value.resource_group_key].name, var.vnet_resource_group_name)
-  resource_id         = can(each.value.resource_id) ? each.value.resource_id : var.remote_objects.mysql_servers[var.client_config.landingzone_key][each.key].id
+  resource_id         = can(each.value.resource_id) ? each.value.resource_id : var.remote_objects.mysql_flexible_servers[var.client_config.landingzone_key][each.key].id
   settings            = each.value
   subnet_id           = var.subnet_id
   subresource_names   = ["mysqlServer"]
@@ -29,7 +29,7 @@ module "mysql_flexible_servers_remote" {
   name                = try(each.value.name, each.key)
   private_dns         = var.private_dns
   resource_group_name = try(var.resource_groups[each.value.resource_group_key].name, var.vnet_resource_group_name)
-  resource_id         = var.remote_objects.mysql_servers[each.value.lz_key][each.key].id
+  resource_id         = var.remote_objects.mysql_flexible_servers[each.value.lz_key][each.key].id
   settings            = each.value
   subnet_id           = var.subnet_id
   subresource_names   = ["mysqlServer"]
