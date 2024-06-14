@@ -77,8 +77,8 @@ resource "azurerm_key_vault_secret" "linux_admin_password" {
 }
 
 locals {
-  admin_username = can(var.settings.virtual_machine_settings["linux"].admin_username_key) ? data.external.linux_admin_username.0.result.value : null
-  admin_password = can(var.settings.virtual_machine_settings["linux"].admin_password_key) ? data.external.linux_admin_password.0.result.value : null
+  linux_admin_username = can(var.settings.virtual_machine_settings["linux"].admin_username_key) ? data.external.linux_admin_username.0.result.value : null
+  linux_admin_password = can(var.settings.virtual_machine_settings["linux"].admin_password_key) ? data.external.linux_admin_password.0.result.value : null
 }
 
 resource "azurerm_linux_virtual_machine" "vm" {
