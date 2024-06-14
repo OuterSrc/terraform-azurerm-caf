@@ -53,7 +53,7 @@ resource "local_sensitive_file" "custom_data" {
 
 resource "random_password" "linux-admin" {
   for_each         = (local.os_type == "linux") && (try(var.settings.virtual_machine_settings["linux"].admin_password_key, null) == null) ? var.settings.virtual_machine_settings : {}
-  length           = 8
+  length           = 12
   min_upper        = 2
   min_lower        = 2
   min_special      = 2
