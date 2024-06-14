@@ -51,10 +51,40 @@ resource "local_sensitive_file" "custom_data" {
   filename = try(format("%s/%s.out", path.cwd, each.value.custom_data.templatefile), each.value.custom_data.templatefile)
 }
 
+resource "random_password" "admin" {
+  for_each         = (local.os_type == "linux") && (try(var.settings.virtual_machine_settings["linux"].admin_password_key, null) == null) ? var.settings.virtual_machine_settings : {}
+  length           = 123
+  min_upper        = 2
+  min_lower        = 2
+  min_special      = 2
+  numeric          = true
+  special          = true
+  override_special = "!@#$%&"
+}
+
+resource "azurerm_key_vault_secret" "admin_password" {
+  for_each = local.os_type == "linux" && try(var.settings.virtual_machine_settings[local.os_type].admin_password_key, null) == null ? var.settings.virtual_machine_settings : {}
+
+  name         = format("%s-admin-password", data.azurecaf_name.linux_computer_name[each.key].result)
+  value        = random_password.admin[local.os_type].result
+  key_vault_id = local.keyvault.id
+
+  lifecycle {
+    ignore_changes = [
+      name, value, key_vault_id
+    ]
+  }
+}
+
+locals {
+  admin_username = can(var.settings.virtual_machine_settings["linux"].admin_username_key) ? data.external.linux_admin_username.0.result.value : null
+  admin_password = can(var.settings.virtual_machine_settings["linux"].admin_password_key) ? data.external.linux_admin_password.0.result.value : null
+}
+
 resource "azurerm_linux_virtual_machine" "vm" {
   for_each = local.os_type == "linux" ? var.settings.virtual_machine_settings : {}
 
-  admin_password                  = each.value.disable_password_authentication == false ? each.value.admin_password : null
+  admin_password                  = each.value.disable_password_authentication == false ? random_password.admin[local.os_type].result : null
   admin_username                  = each.value.admin_username
   allow_extension_operations      = try(each.value.allow_extension_operations, null)
   availability_set_id             = can(each.value.availability_set_key) || can(each.value.availability_set.key) ? var.availability_sets[try(var.client_config.landingzone_key, each.value.availability_set.lz_key)][try(each.value.availability_set_key, each.value.availability_set.key)].id : try(each.value.availability_set.id, each.value.availability_set_id, null)
@@ -209,4 +239,28 @@ resource "azurerm_linux_virtual_machine" "vm" {
     ]
   }
 
+}
+
+data "external" "linux_admin_username" {
+  count = try(var.settings.virtual_machine_settings["linux"].admin_username_key, var.settings.virtual_machine_settings["legacy"].admin_password_key, null) == null ? 0 : 1
+  program = [
+    "bash", "-c",
+    format(
+      "az keyvault secret show --name '%s' --vault-name '%s' --query '{value: value }' -o json",
+      try(var.settings.virtual_machine_settings["linux"].admin_username_key, var.settings.virtual_machine_settings["legacy"].admin_username_key),
+      local.keyvault.name
+    )
+  ]
+}
+
+data "external" "linux_admin_password" {
+  count = try(var.settings.virtual_machine_settings["linux"].admin_password_key, var.settings.virtual_machine_settings["legacy"].admin_password_key, null) == null ? 0 : 1
+  program = [
+    "bash", "-c",
+    format(
+      "az keyvault secret show -n '%s' --vault-name '%s' --query '{value: value }' -o json",
+      try(var.settings.virtual_machine_settings["linux"].admin_password_key, var.settings.virtual_machine_settings["legacy"].admin_password_key),
+      local.keyvault.name
+    )
+  ]
 }
