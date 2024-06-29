@@ -28,7 +28,7 @@ resource "azurerm_container_group" "acg" {
   name                = azurecaf_name.acg.result
   location            = var.location
   resource_group_name = var.resource_group_name
-  os_type             = try(var.settings.os_type, "Linux")
+  os_type             = try(var.settings.os_type, null)
   dns_name_label      = try(var.settings.dns_name_label, null)
   tags                = merge(local.tags, try(var.settings.tags, null))
   ip_address_type     = try(var.settings.ip_address_type, "Public")
