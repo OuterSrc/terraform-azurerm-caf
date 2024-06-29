@@ -33,7 +33,7 @@ resource "azurerm_container_group" "acg" {
   tags                = merge(local.tags, try(var.settings.tags, null))
   ip_address_type     = try(var.settings.ip_address_type, "Public")
   restart_policy      = try(var.settings.restart_policy, "Always")
-  subnet_ids          = try(var.settings.subnet_id, null)
+  subnetIds           = try(var.settings.subnet_id, null)
 
   dynamic "exposed_port" {
     for_each = try(var.settings.exposed_port, [])
