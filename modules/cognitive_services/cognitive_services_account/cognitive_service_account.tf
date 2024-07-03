@@ -9,14 +9,24 @@ resource "azurecaf_name" "service" {
 }
 
 resource "azurerm_cognitive_account" "service" {
-  kind                = var.settings.kind
-  local_auth_enabled  = var.settings.local_auth_enabled
-  location            = var.location
-  name                = azurecaf_name.service.result
-  resource_group_name = var.resource_group_name
-  sku_name            = var.settings.sku_name
+  name                          = azurecaf_name.service.result
+  location                      = var.location
+  resource_group_name           = var.resource_group_name
+  kind                          = var.settings.kind
+  sku_name                      = var.settings.sku_name
+  public_network_access_enabled = try(var.settings.public_network_access_enabled, true)
+  custom_subdomain_name         = try(var.settings.custom_subdomain_name, null)
+  tags                          = merge(local.tags, try(var.settings.tags, null))
+  qna_runtime_endpoint          = var.settings.kind == "QnAMaker" ? var.settings.qna_runtime_endpoint : try(var.settings.qna_runtime_endpoint, null)
+  local_auth_enabled            = var.settings.local_auth_enabled
 
-  qna_runtime_endpoint = var.settings.kind == "QnAMaker" ? var.settings.qna_runtime_endpoint : try(var.settings.qna_runtime_endpoint, null)
+  dynamic "identity" {
+    for_each = lookup(var.settings, "identity", {}) != {} ? [1] : []
+    content {
+      type         = lookup(var.settings.identity, "type", null)
+      identity_ids = can(var.settings.identity.ids) ? var.settings.identity.ids : can(var.settings.identity.key) ? [var.managed_identities[try(var.settings.identity.lz_key, var.client_config.landingzone_key)][var.settings.identity.key].id] : null
+    }
+  }
 
   dynamic "network_acls" {
     for_each = can(var.settings.network_acls) ? [var.settings.network_acls] : []
@@ -43,8 +53,4 @@ resource "azurerm_cognitive_account" "service" {
       }
     }
   }
-
-  custom_subdomain_name = try(var.settings.custom_subdomain_name, null)
-
-  tags = try(local.tags, {})
 }
