@@ -27,6 +27,7 @@ module "private_endpoints" {
     mssql_servers                   = local.combined_objects_mssql_servers
     mysql_servers                   = local.combined_objects_mysql_servers
     networking                      = local.combined_objects_networking
+    postgresql_flexible_servers     = local.combined_objects_postgresql_flexible_servers
     postgresql_servers              = local.combined_objects_postgresql_servers
     recovery_vaults                 = local.combined_objects_recovery_vaults
     redis_caches                    = local.combined_objects_redis_caches
