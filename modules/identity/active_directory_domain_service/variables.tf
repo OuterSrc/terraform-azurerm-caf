@@ -10,6 +10,10 @@ variable "settings" {
 variable "vnets" {
   description = "(Required) Combined vnet object."
 }
+# For diagnostics settings
+variable "diagnostics" {
+  default = {}
+}
 variable "location" {
   description = "location of the resource if different from the resource group."
   default     = null
