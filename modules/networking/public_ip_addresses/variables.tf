@@ -40,10 +40,10 @@ variable "ddos_protection_mode" {
   default     = "VirtualNetworkEnabledInherited"
 }
 
-# variable "ddos_protection_plan_id" {
-#   description = "(Optional) ID of the DDoS protection plan if exists."
-#   default     = {}
-# }
+variable "ddos_protection_plan_id" {
+  description = "(Optional) ID of the DDoS protection plan if exists."
+  default     = ""
+}
 
 variable "ip_version" {
   description = "(Optional) The IP Version to use, IPv6 or IPv4."
