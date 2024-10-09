@@ -42,7 +42,7 @@ variable "ddos_protection_mode" {
 
 variable "ddos_protection_plan_id" {
   description = "(Optional) ID of the DDoS protection plan if exists."
-  default     = ""
+  default     = null
 }
 
 variable "ip_version" {
