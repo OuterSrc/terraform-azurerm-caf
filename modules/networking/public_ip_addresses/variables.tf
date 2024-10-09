@@ -37,7 +37,7 @@ variable "allocation_method" {
 
 variable "ddos_protection_mode" {
   description = "(Optional) The DDoS protection mode of the public IP."
-  default     = "Disabled"
+  default     = "VirtualNetworkEnabledInherited"
 }
 
 variable "ddos_protection_plan_id" {
