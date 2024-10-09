@@ -34,6 +34,17 @@ variable "allocation_method" {
     error_message = "Provide an allowed value as defined in https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/public_ip#allocation_method."
   }
 }
+
+variable "ddos_protection_mode" {
+  description = "(Optional) The DDoS protection mode of the public IP."
+  default     = "VirtualNetworkInherited"
+}
+
+variable "ddos_protection_plan_id" {
+  description = "(Optional) ID of the DDoS protection plan if exists."
+  default     = {}
+}
+
 variable "ip_version" {
   description = "(Optional) The IP Version to use, IPv6 or IPv4."
   type        = string

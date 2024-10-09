@@ -127,6 +127,8 @@ module "public_ip_addresses" {
   name                       = azurecaf_name.public_ip_addresses[each.key].result
   global_settings            = local.global_settings
   allocation_method          = try(each.value.allocation_method, "Dynamic")
+  ddos_protection_mode       = try(each.value,ddos_protection_mode, null)
+  ddos_protection_plan_id    = try(local.combined_objects_ddos_services[try(each.value.ddos_services_lz_key, local.client_config.landingzone_key)][try(each.value.ddos_services_key, each.value.ddos_services_key)].id, "")
   diagnostic_profiles        = try(each.value.diagnostic_profiles, {})
   diagnostics                = local.combined_diagnostics
   domain_name_label          = try(each.value.domain_name_label, null)
