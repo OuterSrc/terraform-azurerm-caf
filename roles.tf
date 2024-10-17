@@ -126,11 +126,13 @@ locals {
     backup_vaults                              = local.combined_objects_backup_vaults
     batch_accounts                             = local.combined_objects_batch_accounts
     cognitive_services_account                 = local.combined_objects_cognitive_services_accounts
+    communication_services                     = local.combined_objects_communication_services
     data_factory                               = local.combined_objects_data_factory
     databricks_workspaces                      = local.combined_objects_databricks_workspaces
     diagnostic_storage_accounts                = local.current_objects_diagnostic_storage_accounts
     dns_zones                                  = local.combined_objects_dns_zones
     event_hub_namespaces                       = local.combined_objects_event_hub_namespaces
+    eventgrid_system_topic                     = local.combined_objects_eventgrid_system_topics
     function_apps                              = local.combined_objects_function_apps
     iot_hub                                    = local.combined_objects_iot_hub
     iot_hub_dps                                = local.combined_objects_iot_hub_dps
