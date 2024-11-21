@@ -13,3 +13,7 @@ variable "group_name" {
 variable "group_id" {
   default = null
 }
+
+variable "azuread_group_name" {
+  default = null
+}
