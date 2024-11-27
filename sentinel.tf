@@ -169,3 +169,11 @@ module "sentinel_dc_threat_intelligence" {
   log_analytics_workspace_id = can(each.value.diagnostic_log_analytics_workspace) || can(each.value.log_analytics_workspace.id) ? try(local.combined_diagnostics.log_analytics[each.value.diagnostic_log_analytics_workspace.key].id, each.value.log_analytics_workspace.id) : local.combined_objects_log_analytics[try(each.value.log_analytics_workspace.lz_key, local.client_config.landingzone_key)][each.value.log_analytics_workspace.key].id
   name                       = each.value.name
 }
+
+module "sentinel_onboard_workspace" {
+  source   = "./modules/security/sentinel/onboard_log_analytics"
+  for_each = try(local.security.sentinel_log_analytics, {})
+
+  log_analytics_workspace_id   = can(each.value.diagnostic_log_analytics_workspace) || can(each.value.log_analytics_workspace.id) ? try(local.combined_diagnostics.log_analytics[each.value.diagnostic_log_analytics_workspace.key].id, each.value.log_analytics_workspace.id) : local.combined_objects_log_analytics[try(each.value.log_analytics_workspace.lz_key, local.client_config.landingzone_key)][each.value.log_analytics_workspace.key].id
+  customer_managed_key_enabled = try(each.value.enabled, false)
+}
