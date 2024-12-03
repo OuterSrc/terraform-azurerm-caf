@@ -18,7 +18,7 @@ resource "null_resource" "set_mi_ad_admin" {
 
     environment = {
       OBJECT_ID    = local.object_id
-      DISPLAY_NAME = var.azuread_group_name
+      DISPLAY_NAME = local.display_name
       RG_NAME      = var.resource_group_name
       MI_NAME      = var.mi_name
     }
