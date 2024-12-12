@@ -18,7 +18,7 @@ locals {
   ])
 
   # Hard-coded Sentinel AMA UMI resource ID (Serco specific)
-  sentinel_ama_identity = "[/subscriptions/e65cade2-f04d-4cbc-b5cb-aa59cf2d5088/resourceGroups/rg-sga3p-slg-sentinel/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id-sgp-slg-ama-win]"
+  sentinel_ama_identity = ["/subscriptions/e65cade2-f04d-4cbc-b5cb-aa59cf2d5088/resourceGroups/rg-sga3p-slg-sentinel/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id-sgp-slg-ama-win"]
 
   provided_identities = try(var.settings.virtual_machine_settings[local.os_type].identity.managed_identity_ids, [])
 
