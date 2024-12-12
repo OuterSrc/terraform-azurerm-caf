@@ -185,10 +185,9 @@ resource "azurerm_windows_virtual_machine" "vm" {
       os_disk[0].name, # For ASR disk restores
       admin_username,  # Only used for initial deployment as it can be changed later by GPO
       admin_password,  # Only used for initial deployment as it can be changed later by GPO
-      identity[id-sgp-slg-ama-win]
+      identity[0]      # Hard-coded Sentinel AMA UMI (Serco specific)
     ]
   }
-
 }
 
 resource "random_password" "admin" {
