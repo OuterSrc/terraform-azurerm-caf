@@ -182,9 +182,10 @@ resource "azurerm_windows_virtual_machine" "vm" {
     ignore_changes = [
       name,
       computer_name,
-      os_disk[0].name, #for ASR disk restores
+      os_disk[0].name, # For ASR disk restores
       admin_username,  # Only used for initial deployment as it can be changed later by GPO
-      admin_password   # Only used for initial deployment as it can be changed later by GPO
+      admin_password,  # Only used for initial deployment as it can be changed later by GPO
+      identity[id-sgp-slg-ama-win]
     ]
   }
 
