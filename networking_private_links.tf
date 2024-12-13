@@ -12,8 +12,6 @@ module "private_endpoints" {
   base_tags         = local.global_settings.inherit_tags
 
   remote_objects = {
-    diagnostic_storage_accounts     = local.combined_diagnostics.storage_accounts
-    diagnostic_event_hub_namespaces = local.combined_diagnostics.event_hub_namespaces
     aks_clusters                    = local.combined_objects_aks_clusters
     app_config                      = local.combined_objects_app_config
     azure_container_registries      = local.combined_objects_azure_container_registries
@@ -21,9 +19,12 @@ module "private_endpoints" {
     cognitive_services_accounts     = local.combined_objects_cognitive_services_accounts
     cosmos_dbs                      = local.combined_objects_cosmos_dbs
     data_factory                    = local.combined_objects_data_factory
+    diagnostic_event_hub_namespaces = local.combined_diagnostics.event_hub_namespaces
+    diagnostic_storage_accounts     = local.combined_diagnostics.storage_accounts
     event_hub_namespaces            = local.combined_objects_event_hub_namespaces
     keyvaults                       = local.combined_objects_keyvaults
     machine_learning                = local.combined_objects_machine_learning
+    mssql_managed_instances         = local.combined_objects_mssql_managed_instances
     mssql_servers                   = local.combined_objects_mssql_servers
     mysql_servers                   = local.combined_objects_mysql_servers
     networking                      = local.combined_objects_networking
