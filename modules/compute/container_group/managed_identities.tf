@@ -12,7 +12,8 @@ locals {
   managed_remote_identities = flatten([
     for lz_key, value in try(var.settings.identity.remote, []) : [
       for managed_identity_key in value.managed_identity_keys : [
-        var.combined_resources.managed_identities[lz_key][managed_identity_key].id
+        # var.combined_resources.managed_identities[lz_key][managed_identity_key].id
+        try(var.combined_resources.managed_identities[lz_key][managed_identity_key].id, var.combined_resources.managed_identities.local[managed_identity_key].id)
       ]
     ]
   ])
