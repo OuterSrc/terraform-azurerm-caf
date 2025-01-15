@@ -9,14 +9,29 @@ locals {
     ]
   ])
 
+  # managed_remote_identities = flatten([
+  #   for lz_key, value in try(var.settings.identity.remote, []) : [
+  #     for managed_identity_key in value.managed_identity_keys : [
+  #       var.combined_resources.managed_identities[lz_key][managed_identity_key].id
+  #     ]
+  #   ]
+  # ])
+
   managed_remote_identities = flatten([
-    for lz_key, value in try(var.settings.identity.remote, []) : [
-      for managed_identity_key in value.managed_identity_keys : [
-        # var.combined_resources.managed_identities[lz_key][managed_identity_key].id
-        try(var.combined_resources.managed_identities[lz_key][managed_identity_key].id, var.combined_resources.managed_identities.local[managed_identity_key].id)
+    # concat(
+    #   for lz, value in try(var.settings.identity.remote, []) : [
+    #     for managed_identity_id in var.settings.identity.managed_identity_ids : [
+    #       var.combined_resources.managed_identities.local[managed_identity_id].id
+    #     ]
+    #   ]
+
+      for lz_key, value in try(var.settings.identity.remote, []) : [
+        for managed_identity_key in value.managed_identity_keys : [
+          var.combined_resources.managed_identities[lz_key][managed_identity_key].id
+        ]
       ]
-    ]
+    # )
   ])
 
-  managed_identities = concat(local.managed_local_identities, local.managed_remote_identities)
+  managed_identities = concat(local.managed_local_identities, local.managed_remote_identities, var.settings.identity.managed_identity_ids)
 }
