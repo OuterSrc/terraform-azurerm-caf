@@ -20,8 +20,8 @@ resource "azurerm_network_profile" "this" {
           try(var.remote_objects.virtual_networks[var.client_config.landingzone_key][ip_configuration.value.virtual_subnet_key].id, null)
         )
 
-        output "debug_ip_configuration" {
-          value = {
+        locals {
+          debug_ip_configuration = {
             subnet_id = try(ip_configuration.value.subnet_id, null)
             lz_key = try(ip_configuration.value.lz_key, null)
             vnet_key = try(ip_configuration.value.vnet_key, null)
@@ -37,6 +37,10 @@ resource "azurerm_network_profile" "this" {
       }
     }
   }
+}
+
+output "debug_ip_configuration" {
+  value = azurerm_network_profile.this.container_network_interface[0].ip_configuration[0].debug_ip_configuration
 }
 
 # local.combined_objects_networking.gitops_network.devops_region1.subnets.agent-level3.id
