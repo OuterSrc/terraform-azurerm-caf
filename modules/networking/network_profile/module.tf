@@ -2,6 +2,7 @@ resource "azurerm_network_profile" "this" {
   name                = var.settings.name
   location            = can(var.settings.location) ? var.settings.location : var.resource_group.location
   resource_group_name = var.resource_group.name
+  tags                = merge(local.tags, try(var.settings.tags, null))
 
   container_network_interface {
     name = var.settings.container_network_interface.name

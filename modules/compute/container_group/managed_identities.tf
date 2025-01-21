@@ -17,5 +17,5 @@ locals {
     ]
   ])
 
-  managed_identities = concat(local.managed_local_identities, local.managed_remote_identities)
+  managed_identities = concat(local.managed_local_identities, local.managed_remote_identities, var.settings.identity.managed_identity_ids)
 }
