@@ -25,8 +25,8 @@ data "azurecaf_environment_variable" "token" {
 }
 
 locals {
-  tags = var.global_settings.inherit_tags ? merge(
-    var.global_settings.tags,
-    var.tags
-  ) : var.tags
+  tags = merge(
+    try(var.global_settings.tags),
+    try(var.tags)
+  )
 }
