@@ -23,3 +23,10 @@ data "azurecaf_environment_variable" "token" {
   name           = var.extension.pats_from_env_variable.variable_name
   fails_if_empty = true
 }
+
+locals {
+  tags = var.global_settings.inherit_tags ? merge(
+    var.global_settings.tags,
+    var.tags
+  ) : var.tags
+}
