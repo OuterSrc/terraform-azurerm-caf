@@ -6,6 +6,7 @@ resource "azurerm_virtual_machine_extension" "session_host_dscextension" {
   type                       = "DSC"
   type_handler_version       = "2.73"
   auto_upgrade_minor_version = true
+  tags                       = local.tags
 
   settings = jsonencode(
     {

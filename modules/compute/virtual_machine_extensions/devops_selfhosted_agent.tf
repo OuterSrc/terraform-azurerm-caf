@@ -20,6 +20,7 @@ resource "azurerm_virtual_machine_extension" "devops_selfhosted_agent" {
   publisher            = "Microsoft.Azure.Extensions"
   type                 = "CustomScript"
   type_handler_version = "2.1"
+  tags                       = local.tags
 
   settings           = jsonencode(local.devops_selfhosted_agent_settings)
   protected_settings = jsonencode(local.devops_selfhosted_agent_protected_settings)

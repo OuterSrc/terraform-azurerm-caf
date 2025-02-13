@@ -8,6 +8,7 @@ resource "azurerm_virtual_machine_extension" "linux_diagnostic" {
   type_handler_version       = try(var.extension.type_handler_version, "4.0")
   automatic_upgrade_enabled  = try(var.extension.auto_upgrade_minor_version, false)
   auto_upgrade_minor_version = try(var.extension.auto_upgrade_minor_version, true)
+  tags                       = local.tags
 
   settings = jsonencode({
     "ladCfg"         = jsondecode(templatefile(local.linux_diagnostic.ladcfg, { virtual_machine_id = var.virtual_machine_id }))

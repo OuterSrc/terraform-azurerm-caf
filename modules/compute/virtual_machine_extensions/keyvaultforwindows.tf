@@ -7,6 +7,7 @@ resource "azurerm_virtual_machine_extension" "keyvault_for_windows" {
   type                       = "KeyVaultForWindows"
   type_handler_version       = try(var.extension.type_handler_version, "1.0")
   auto_upgrade_minor_version = try(var.extension.auto_upgrade_minor_version, true)
+  tags                       = local.tags
 
   settings = jsonencode(
     {

@@ -6,6 +6,7 @@ resource "azurerm_virtual_machine_extension" "custom_script" {
   type                       = local.type
   type_handler_version       = local.type_handler_version
   auto_upgrade_minor_version = true
+  tags                       = local.tags
 
   settings = jsonencode(
     {
