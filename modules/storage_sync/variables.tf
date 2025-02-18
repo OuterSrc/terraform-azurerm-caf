@@ -6,11 +6,11 @@ variable "client_config" {
 }
 variable "location" {
   description = "location of the resource if different from the resource group."
-  default     = null
+  default = null
 }
 variable "resource_group_name" {
   description = "Resource group object to deploy the virtual machine"
-  default     = null
+  default = null
 }
 variable "resource_group" {
   description = "Resource group object to deploy the virtual machine"
@@ -18,4 +18,7 @@ variable "resource_group" {
 variable "base_tags" {
   description = "Base tags for the resource to be inherited from the resource group."
   type        = bool
+}
+variable "name" {
+  default = null
 }
