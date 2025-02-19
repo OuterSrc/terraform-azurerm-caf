@@ -1,9 +1,6 @@
 variable "global_settings" {
   description = "Global settings object (see module README.md)"
 }
-variable "client_config" {
-  description = "Client configuration object (see module README.md)."
-}
 variable "location" {
   description = "location of the resource if different from the resource group."
   default = null
