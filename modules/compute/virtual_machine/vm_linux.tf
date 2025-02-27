@@ -238,7 +238,8 @@ resource "azurerm_linux_virtual_machine" "vm" {
       os_disk[0].name, #for ASR disk restores
       admin_ssh_key,
       admin_password,
-      admin_username
+      admin_username,
+      identity # Identities ignored for Sentinel AMA UMI (Serco specific)
     ]
   }
 
