@@ -239,7 +239,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
       admin_ssh_key,
       admin_password,
       admin_username,
-      identity # Identities ignored for Sentinel AMA UMI (Serco specific)
+      identity # Identities ignored for Sentinel AMA UMI
     ]
   }
 
