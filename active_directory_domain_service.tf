@@ -8,6 +8,7 @@ module "active_directory_domain_service" {
   global_settings = local.global_settings
   client_config   = local.client_config
   settings        = each.value
+  diagnostics     = local.combined_diagnostics
   base_tags       = local.global_settings.inherit_tags
 
   resource_group      = local.combined_objects_resource_groups[try(each.value.resource_group.lz_key, local.client_config.landingzone_key)][try(each.value.resource_group_key, each.value.resource_group.key)]

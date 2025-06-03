@@ -1,3 +1,4 @@
+
 resource "azurecaf_name" "egt" {
   name          = var.settings.name
   resource_type = "azurerm_eventgrid_topic"

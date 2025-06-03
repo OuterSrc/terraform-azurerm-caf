@@ -19,6 +19,7 @@ resource "azurerm_virtual_machine_extension" "tfcloud_selfhosted_agent" {
   publisher            = "Microsoft.Azure.Extensions"
   type                 = "CustomScript"
   type_handler_version = "2.1"
+  tags                 = local.tags
 
   settings           = jsonencode(local.tfcloud_selfhosted_agent_settings)
   protected_settings = jsonencode(local.tfcloud_selfhosted_agent_protected_settings)

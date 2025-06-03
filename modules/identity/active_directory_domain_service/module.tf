@@ -60,11 +60,13 @@ resource "azurerm_active_directory_domain_service" "aadds" {
   dynamic "security" {
     for_each = can(var.settings.security) ? [var.settings.security] : []
     content {
-      ntlm_v1_enabled         = try(security.value.ntlm_v1_enabled, null)
-      sync_kerberos_passwords = try(security.value.sync_kerberos_passwords, null)
-      sync_ntlm_passwords     = try(security.value.sync_ntlm_passwords, null)
-      sync_on_prem_passwords  = try(security.value.sync_on_prem_passwords, null)
-      tls_v1_enabled          = try(security.value.tls_v1_enabled, null)
+      kerberos_armoring_enabled       = try(security.value.kerberos_armoring_enabled, null)
+      kerberos_rc4_encryption_enabled = try(security.value.kerberos_rc4_encryption_enabled, null)
+      ntlm_v1_enabled                 = try(security.value.ntlm_v1_enabled, null)
+      sync_kerberos_passwords         = try(security.value.sync_kerberos_passwords, null)
+      sync_ntlm_passwords             = try(security.value.sync_ntlm_passwords, null)
+      sync_on_prem_passwords          = try(security.value.sync_on_prem_passwords, null)
+      tls_v1_enabled                  = try(security.value.tls_v1_enabled, null)
     }
   }
 

@@ -6,6 +6,7 @@ resource "azurerm_virtual_machine_extension" "domainjoin" {
   type                       = "JsonADDomainExtension"
   type_handler_version       = try(var.extension.type_handler_version, "1.3")
   auto_upgrade_minor_version = try(var.extension.auto_upgrade_minor_version, true)
+  tags                       = local.tags
 
   settings = jsonencode(
     {

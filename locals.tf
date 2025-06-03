@@ -100,6 +100,7 @@ locals {
     wvd_applications                       = try(var.compute.wvd_applications, {})
     wvd_application_groups                 = try(var.compute.wvd_application_groups, {})
     wvd_host_pools                         = try(var.compute.wvd_host_pools, {})
+    wvd_scaling_plans                      = try(var.compute.wvd_scaling_plans, {})
     wvd_workspaces                         = try(var.compute.wvd_workspaces, {})
     virtual_machines                       = try(var.compute.virtual_machines, {})
     virtual_machine_scale_sets             = try(var.compute.virtual_machine_scale_sets, {})
@@ -113,6 +114,7 @@ locals {
     purview_accounts = try(var.purview.purview_accounts, {})
   }
   database = {
+    analysis_services_server           = try(var.database.analysis_services_server, {})
     app_config                         = try(var.database.app_config, {})
     azurerm_redis_caches               = try(var.database.azurerm_redis_caches, {})
     cosmos_dbs                         = try(var.database.cosmos_dbs, {})
@@ -248,6 +250,7 @@ locals {
   }
 
   cognitive_services = {
+    azurerm_search_service     = try(var.cognitive_services.azurerm_search_service, {})
     cognitive_services_account = try(var.cognitive_services.cognitive_services_account, {})
   }
   search_services = {
@@ -256,6 +259,7 @@ locals {
   maps = {
     maps_accounts = try(var.maps.maps_accounts, {})
   }
+  
   messaging = {
     signalr_services                    = try(var.messaging.signalr_services, {})
     servicebus_namespaces               = try(var.messaging.servicebus_namespaces, {})
@@ -328,6 +332,8 @@ locals {
     relay_hybrid_connection                                 = try(var.networking.relay_hybrid_connection, {})
     relay_namespace                                         = try(var.networking.relay_namespace, {})
     public_ip_prefixes                                      = try(var.networking.public_ip_prefixes, {})
+    route_servers                                           = try(var.networking.route_servers, {})
+    route_servers_bgp_connections                           = try(var.networking.route_servers_bgp_connections, {})
     route_tables                                            = try(var.networking.route_tables, {})
     traffic_manager_profile                                 = try(var.networking.traffic_manager_profile, {})
     traffic_manager_nested_endpoint                         = try(var.networking.traffic_manager_nested_endpoint, {})
@@ -376,6 +382,7 @@ locals {
     sentinel_dc_office_365              = try(var.security.sentinel_dc_office_365, {})
     sentinel_dc_security_center         = try(var.security.sentinel_dc_security_center, {})
     sentinel_dc_threat_intelligence     = try(var.security.sentinel_dc_threat_intelligence, {})
+    sentinel_log_analytics              = try(var.security.sentinel_log_analytics, {})
   }
 
   shared_services = {
@@ -411,11 +418,14 @@ locals {
     app_service_environments_v3                    = try(var.webapp.app_service_environments_v3, {})
     app_service_plans                              = try(var.webapp.app_service_plans, {})
     app_services                                   = try(var.webapp.app_services, {})
+    windows_web_apps                               = try(var.webapp.windows_web_apps, {})
+    linux_web_apps                                 = try(var.webapp.linux_web_apps, {})
     azurerm_application_insights                   = try(var.webapp.azurerm_application_insights, {})
     azurerm_application_insights_web_test          = try(var.webapp.azurerm_application_insights_web_test, {})
     azurerm_application_insights_standard_web_test = try(var.webapp.azurerm_application_insights_standard_web_test, {})
     function_apps                                  = try(var.webapp.function_apps, {})
     static_sites                                   = try(var.webapp.static_sites, {})
+    windows_function_apps                          = try(var.webapp.windows_function_apps, {})
   }
 
   enable = {

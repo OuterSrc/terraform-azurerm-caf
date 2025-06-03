@@ -8,6 +8,7 @@ resource "azurerm_virtual_machine_extension" "monitoring" {
   publisher            = "Microsoft.EnterpriseCloud.Monitoring"
   type                 = "MicrosoftMonitoringAgent"
   type_handler_version = "1.0"
+  tags                 = local.tags
 
   settings = jsonencode(
     {
