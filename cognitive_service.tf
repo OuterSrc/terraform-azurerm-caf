@@ -11,14 +11,8 @@ module "cognitive_services_account" {
   private_endpoints   = try(each.value.private_endpoints, {})
   resource_groups     = local.combined_objects_resource_groups
   settings            = each.value
-  resource_groups     = local.combined_objects_resource_groups
+  managed_identities  = local.combined_objects_managed_identities
   vnets               = local.combined_objects_networking
-  private_endpoints   = try(each.value.private_endpoints, {})
-  private_dns         = local.combined_objects_private_dns
-  diagnostics         = local.combined_diagnostics
-  diagnostic_profiles = try(each.value.diagnostic_profiles, {})
-
-  managed_identities = local.combined_objects_managed_identities
 }
 
 output "cognitive_services_account" {
