@@ -379,6 +379,12 @@ resource "azurerm_application_gateway" "agw" {
       }
     }
   }
+
+  lifecycle {
+    ignore_changes = [
+      ssl_certificate,
+    ]
+  }
 }
 
 output "certificate_keys" {
