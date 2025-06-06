@@ -24,12 +24,15 @@ variable "resource_group_name" {
   description = "Name of the existing resource group to deploy the resource"
 }
 
-variable "diagnostic_profiles" {
+variable "private_dns" {
   default = {}
 }
-variable "diagnostics" {
+
+variable "private_endpoints" {
   default = {}
 }
+
+variable "resource_groups" {}
 
 variable "settings" {}
 
@@ -38,16 +41,3 @@ variable "managed_identities" {
 }
 
 variable "vnets" {}
-
-variable "resource_groups" {}
-
-variable "private_endpoints" {}
-
-variable "private_dns" {
-  default = {}
-}
-
-variable "base_tags" {
-  description = "Base tags for the resource to be inherited from the resource group."
-  type        = bool
-}
