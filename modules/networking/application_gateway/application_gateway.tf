@@ -382,6 +382,7 @@ resource "azurerm_application_gateway" "agw" {
 
   lifecycle {
     ignore_changes = [
+      http_listener,
       ssl_certificate,
     ]
   }
