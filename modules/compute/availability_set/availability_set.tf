@@ -2,7 +2,8 @@ resource "azurerm_availability_set" "avset" {
   name                         = azurecaf_name.avset.result
   location                     = var.location
   resource_group_name          = var.resource_group_name
-  tags                         = local.tags
+  # tags                         = local.tags
+  tags                         = merge(local.tags, try(var.settings.tags, null))
   platform_update_domain_count = var.settings.platform_update_domain_count
   platform_fault_domain_count  = var.settings.platform_fault_domain_count
   managed                      = try(var.settings.managed, true)
