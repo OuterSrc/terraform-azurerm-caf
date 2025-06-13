@@ -15,9 +15,6 @@ module "availability_sets" {
 
 }
 
-
-
 output "availability_sets" {
   value = module.availability_sets
-
 }
