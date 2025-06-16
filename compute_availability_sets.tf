@@ -12,7 +12,6 @@ module "availability_sets" {
   availability_sets          = local.compute.availability_sets
   proximity_placement_groups = local.combined_objects_proximity_placement_groups
   ppg_id                     = try(module.proximity_placement_groups[each.value.proximity_placement_group_key].id, null)
-  # tags                       = each.value.tags
 }
 
 output "availability_sets" {
