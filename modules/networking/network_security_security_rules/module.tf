@@ -64,39 +64,39 @@ locals {
           #   ids = ["resource_id"]
           # }
 
+          # source_application_security_group_ids = try(
+          #   coalescelist(
+          #     flatten(
+          #       [
+          #         for key in try(value.source_application_security_groups.keys, []) : [
+          #           var.remote_objects.application_security_groups[try(value.lz_key, var.client_config.landingzone_key)][key].id
+          #         ]
+          #       ]
+          #     ),
+          #     flatten(
+          #       [
+          #         for asg_id in try(value.source_application_security_groups.ids, []) : [
+          #           asg_id
+          #         ]
+          #       ]
+          #     )
+          #   ), //coalescelist
+          #   []
+          # )
+
           source_application_security_group_ids = try(
             coalescelist(
               flatten(
                 [
                   for key in try(value.source_application_security_groups.keys, []) : [
-                    var.remote_objects.application_security_groups[try(value.lz_key, var.client_config.landingzone_key)][key].id
+                    lower(var.remote_objects.application_security_groups[ try(value.lz_key, var.client_config.landingzone_key) ][key].id)
                   ]
                 ]
               ),
               flatten(
                 [
                   for asg_id in try(value.source_application_security_groups.ids, []) : [
-                    asg_id
-                  ]
-                ]
-              )
-            ), //coalescelist
-            []
-          )
-
-          destination_application_security_group_ids = try(
-            coalescelist(
-              flatten(
-                [
-                  for key in try(value.destination_application_security_groups.keys, []) : [
-                    var.remote_objects.application_security_groups[try(value.lz_key, var.client_config.landingzone_key)][key].id
-                  ]
-                ]
-              ),
-              flatten(
-                [
-                  for asg_id in try(value.destination_application_security_groups.ids, []) : [
-                    asg_id
+                    lower(asg_id)
                   ]
                 ]
               )
@@ -104,6 +104,46 @@ locals {
             []
           )
 
+
+          # destination_application_security_group_ids = try(
+          #   coalescelist(
+          #     flatten(
+          #       [
+          #         for key in try(value.destination_application_security_groups.keys, []) : [
+          #           var.remote_objects.application_security_groups[try(value.lz_key, var.client_config.landingzone_key)][key].id
+          #         ]
+          #       ]
+          #     ),
+          #     flatten(
+          #       [
+          #         for asg_id in try(value.destination_application_security_groups.ids, []) : [
+          #           asg_id
+          #         ]
+          #       ]
+          #     )
+          #   ),
+          #   []
+          # )
+
+          destination_application_security_group_ids = try(
+            coalescelist(
+              flatten(
+                [
+                  for key in try(value.destination_application_security_groups.keys, []) : [
+                    lower(var.remote_objects.application_security_groups[try(value.lz_key, var.client_config.landingzone_key)][key].id)
+                  ]
+                ]
+              ),
+              flatten(
+                [
+                  for asg_id in try(value.destination_application_security_groups.ids, []) : [
+                    lower(asg_id)
+                  ]
+                ]
+              )
+            ),
+            []
+          )
         }
       ]
 
