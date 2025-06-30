@@ -140,6 +140,7 @@ locals {
     kusto_clusters                             = local.combined_objects_kusto_clusters
     linux_web_apps                             = local.combined_objects_linux_web_apps
     log_analytics                              = local.current_objects_log_analytics
+    logic_app_standard                         = local.combined_objects_logic_app_standard
     logged_in                                  = local.logged_in
     machine_learning_compute_instance          = module.machine_learning_compute_instance
     machine_learning_workspaces                = local.combined_objects_machine_learning
