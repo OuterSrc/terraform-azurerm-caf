@@ -51,14 +51,14 @@ locals {
           flatten(
             [
               for key in try(value.source_application_security_groups.keys, []) : [
-                lower(var.application_security_groups[try(value.lz_key, var.client_config.landingzone_key)][key].id)
+                var.application_security_groups[try(value.lz_key, var.client_config.landingzone_key)][key].id
               ]
             ]
           ),
           flatten(
             [
               for asg_id in try(value.source_application_security_groups.ids, []) : [
-                lower(asg_id)
+                asg_id
               ]
             ]
           )
@@ -71,14 +71,14 @@ locals {
           flatten(
             [
               for key in try(value.destination_application_security_groups.keys, []) : [
-                lower(var.application_security_groups[try(value.lz_key, var.client_config.landingzone_key)][key].id)
+                var.application_security_groups[try(value.lz_key, var.client_config.landingzone_key)][key].id
               ]
             ]
           ),
           flatten(
             [
               for asg_id in try(value.destination_application_security_groups.ids, []) : [
-                lower(asg_id)
+                asg_id
               ]
             ]
           )
