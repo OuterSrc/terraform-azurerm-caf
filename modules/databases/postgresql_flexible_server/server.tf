@@ -60,6 +60,7 @@ resource "azurerm_postgresql_flexible_server" "postgresql" {
 
   lifecycle {
     ignore_changes = [
+      administrator_password,
       private_dns_zone_id,
       tags
     ]
