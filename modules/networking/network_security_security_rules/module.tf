@@ -69,7 +69,7 @@ locals {
               flatten(
                 [
                   for key in try(value.source_application_security_groups.keys, []) : [
-                    var.remote_objects.application_security_groups[ try(value.lz_key, var.client_config.landingzone_key) ][key].id
+                    var.remote_objects.application_security_groups[try(value.lz_key, var.client_config.landingzone_key)][key].id
                   ]
                 ]
               ),
@@ -80,7 +80,7 @@ locals {
                   ]
                 ]
               )
-            ),
+            ), //coalescelist
             []
           )
 
