@@ -11,7 +11,7 @@ resource "azurerm_mssql_virtual_machine" "mssqlvm" {
 
   ]
 
-  virtual_machine_id               = local.os_type == "windows" ? try(azurerm_windows_virtual_machine.vm[each.key].id, null) : try(azurerm_linux_virtual_machine.vm[each.key].id, null)
+  virtual_machine_id               = local.os_type == "windows" ? lower(try(azurerm_windows_virtual_machine.vm[each.key].id, null)) : lower(try(azurerm_linux_virtual_machine.vm[each.key].id, null))
   sql_license_type                 = try(each.value.mssql_settings.sql_license_type, null)
   r_services_enabled               = try(each.value.mssql_settings.r_services_enabled, null)
   sql_connectivity_port            = try(each.value.mssql_settings.sql_connectivity_port, null)
@@ -113,6 +113,12 @@ resource "azurerm_mssql_virtual_machine" "mssqlvm" {
       }
 
     }
+  }
+
+  lifecycle {
+    ignore_changes = [
+      virtual_machine_id
+    ]
   }
 
   timeouts {
