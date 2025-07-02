@@ -200,7 +200,7 @@ resource "azurerm_container_group" "acg" {
     ]
   }
   
-    timeouts {
+  timeouts {
     create = "2h"
     update = "2h"
   }
