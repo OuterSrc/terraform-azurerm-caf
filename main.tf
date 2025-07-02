@@ -18,7 +18,7 @@ terraform {
     }
     azurecaf = {
       source  = "aztfmod/azurecaf"
-      version = "~> 1.2.0, !=1.2.30"
+      version = "=1.2.29"
     }
     null = {
       source = "hashicorp/null"
