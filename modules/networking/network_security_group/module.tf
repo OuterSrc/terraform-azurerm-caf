@@ -20,8 +20,7 @@ resource "azurerm_network_security_group" "nsg" {
 
   lifecycle {
     ignore_changes = [
-      "security_rule[*].source_application_security_group_ids",
-      "security_rule[*].destination_application_security_group_ids",
+      "security_rule",
     ]
   }
 }
