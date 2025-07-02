@@ -194,7 +194,13 @@ resource "azurerm_container_group" "acg" {
   #   }
   # }
 
-  timeouts {
+  lifecycle {
+    ignore_changes = [
+      image_registry_credential
+    ]
+  }
+  
+    timeouts {
     create = "2h"
     update = "2h"
   }
