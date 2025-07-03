@@ -115,6 +115,12 @@ resource "azurerm_mssql_virtual_machine" "mssqlvm" {
     }
   }
 
+  lifecycle {
+    ignore_changes = [
+      virtual_machine_id
+    ]
+  }
+
   timeouts {
     create = "4h"
     update = "2h"

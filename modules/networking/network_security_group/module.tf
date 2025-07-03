@@ -17,6 +17,12 @@ resource "azurerm_network_security_group" "nsg" {
   security_rule = can(var.settings.nsg) == false ? null : [
     for key, value in local.security_rules : value
   ]
+
+  lifecycle {
+    ignore_changes = [
+      "security_rule",
+    ]
+  }
 }
 
 locals {
