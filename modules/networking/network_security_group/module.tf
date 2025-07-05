@@ -18,11 +18,11 @@ resource "azurerm_network_security_group" "nsg" {
     for key, value in local.security_rules : value
   ]
 
-  lifecycle {
-    ignore_changes = [
-      security_rule,
-    ]
-  }
+  # lifecycle {
+  #   ignore_changes = [
+  #     security_rule,
+  #   ]
+  # }
 }
 
 locals {
