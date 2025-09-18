@@ -51,7 +51,7 @@ resource "azurerm_mssql_server_extended_auditing_policy" "mssql" {
 
   log_monitoring_enabled = try(each.value.extended_auditing_policy.log_monitoring_enabled, false)
   server_id              = module.mssql_servers[each.key].id
-  storage_endpoint       = try(data.azurerm_storage_account.mssql_auditing[each.key].primary_blob_endpoint, null)
+  storage_endpoint       = data.azurerm_storage_account.mssql_auditing[each.key].primary_blob_endpoint
   retention_in_days      = try(each.value.extended_auditing_policy.retention_in_days, null)
 }
 
