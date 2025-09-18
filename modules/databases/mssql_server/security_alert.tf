@@ -18,7 +18,7 @@ resource "azurerm_mssql_server_security_alert_policy" "mssql" {
   resource_group_name        = local.resource_group_name
   server_name                = azurerm_mssql_server.mssql.name
   state                      = try(var.settings.state, "Enabled")
-  storage_endpoint           = try(data.azurerm_storage_account.mssql_security_alert[0].primary_blob_endpoint, null)
+  storage_endpoint           = length(data.azurerm_storage_account.mssql_security_alert) > 0 ? data.azurerm_storage_account.mssql_security_alert[0].primary_blob_endpoint : null
   disabled_alerts            = try(var.settings.disabled_alerts, null)
   email_account_admins       = try(var.settings.email_subscription_admins, false)
   email_addresses            = try(var.settings.email_addresses, null)
