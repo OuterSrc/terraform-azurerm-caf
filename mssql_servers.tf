@@ -37,8 +37,8 @@ data "azurerm_storage_account" "mssql_auditing" {
     if try(value.extended_auditing_policy, null) != null
   }
 
-  name                = each.value.extended_auditing_policy.storage_account.name
-  resource_group_name = each.value.extended_auditing_policy.storage_account.resource_group_name
+  name                = module.storage_accounts[each.value.extended_auditing_policy.storage_account.name].name
+  resource_group_name = module.storage_accounts[each.value.extended_auditing_policy.storage_account.name].resource_group_name
 }
 
 
