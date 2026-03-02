@@ -13,17 +13,19 @@ data "azurecaf_name" "disk" {
 resource "azurerm_managed_disk" "disk" {
   for_each = lookup(var.settings, "data_disks", {})
 
-  name                   = data.azurecaf_name.disk[each.key].result
-  location               = local.location
-  resource_group_name    = local.resource_group_name
-  storage_account_type   = each.value.storage_account_type
-  create_option          = each.value.create_option
-  disk_size_gb           = each.value.disk_size_gb
-  zone                   = try(each.value.zone, each.value.zones[0], null)
-  disk_iops_read_write   = try(each.value.disk_iops_read_write, null)
-  disk_mbps_read_write   = try(each.value.disk.disk_mbps_read_write, null)
-  tags                   = merge(local.tags, try(each.value.tags, {}))
-  disk_encryption_set_id = can(each.value.disk_encryption_set_id) ? each.value.disk_encryption_set_id : can(each.value.disk_encryption_set_key) ? var.disk_encryption_sets[try(each.value.lz_key, var.client_config.landingzone_key)][each.value.disk_encryption_set_key].id : null
+  name                          = data.azurecaf_name.disk[each.key].result
+  location                      = local.location
+  resource_group_name           = local.resource_group_name
+  storage_account_type          = each.value.storage_account_type
+  create_option                 = each.value.create_option
+  disk_size_gb                  = each.value.disk_size_gb
+  zone                          = try(each.value.zone, each.value.zones[0], null)
+  disk_iops_read_write          = try(each.value.disk_iops_read_write, null)
+  disk_mbps_read_write          = try(each.value.disk.disk_mbps_read_write, null)
+  tags                          = merge(local.tags, try(each.value.tags, {}))
+  public_network_access_enabled = try(each.value.public_network_access_enabled, true)
+  network_access_policy         = try(each.value.network_access_policy, "AllowAll")
+  disk_encryption_set_id        = can(each.value.disk_encryption_set_id) ? each.value.disk_encryption_set_id : can(each.value.disk_encryption_set_key) ? var.disk_encryption_sets[try(each.value.lz_key, var.client_config.landingzone_key)][each.value.disk_encryption_set_key].id : null
   lifecycle {
     ignore_changes = [
       name, #for ASR disk restores
