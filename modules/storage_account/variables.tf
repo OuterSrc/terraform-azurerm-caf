@@ -22,10 +22,6 @@ variable "base_tags" {
   description = "Base tags for the resource to be inherited from the resource group."
   type        = bool
 }
-variable "https_traffic_only_enabled" {
-  description = "Enable or disable https traffic only for the storage account."
-  default     = null
-}
 variable "shared_access_key_enabled" {
   description = "Enable or disable shared access key for the storage account."
   default     = null
