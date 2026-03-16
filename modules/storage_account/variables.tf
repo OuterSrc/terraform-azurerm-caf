@@ -24,13 +24,11 @@ variable "base_tags" {
 }
 variable "shared_access_key_enabled" {
   description = "Enable or disable shared access key for the storage account."
-  type        = bool
-  default     = {}
+  default     = null
 }
 variable "default_to_oauth_authentication" {
   description = "Enable or disable default to OAuth authentication for the storage account."
-  type        = bool
-  default     = {}
+  default     = null
 }
 variable "vnets" {
   default = {}
