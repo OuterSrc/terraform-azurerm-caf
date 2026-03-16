@@ -22,6 +22,16 @@ variable "base_tags" {
   description = "Base tags for the resource to be inherited from the resource group."
   type        = bool
 }
+variable "shared_access_key_enabled" {
+  description = "Enable or disable shared access key for the storage account."
+  type        = bool
+  default     = {}
+}
+variable "default_to_oauth_authentication" {
+  description = "Enable or disable default to OAuth authentication for the storage account."
+  type        = bool
+  default     = {}
+}
 variable "vnets" {
   default = {}
 }

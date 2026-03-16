@@ -26,7 +26,7 @@ resource "azurerm_storage_account" "stg" {
   allow_nested_items_to_be_public   = try(var.storage_account.allow_nested_items_to_be_public, var.storage_account.allow_blob_public_access, false)
   cross_tenant_replication_enabled  = try(var.storage_account.cross_tenant_replication_enabled, null)
   edge_zone                         = try(var.storage_account.edge_zone, null)
-  enable_https_traffic_only         = try(var.storage_account.enable_https_traffic_only, true)
+  https_traffic_only_enabled        = try(var.storage_account.https_traffic_only_enabled, true)
   infrastructure_encryption_enabled = try(var.storage_account.infrastructure_encryption_enabled, null)
   large_file_share_enabled          = try(var.storage_account.large_file_share_enabled, null)
   location                          = local.location
@@ -39,7 +39,8 @@ resource "azurerm_storage_account" "stg" {
   table_encryption_key_type         = try(var.storage_account.table_encryption_key_type, null)
   tags                              = merge(local.tags, try(var.storage_account.tags, null), local.caf_tags)
   public_network_access_enabled     = try(var.storage_account.public_network_access_enabled, null)
-
+  shared_access_key_enabled         = try(var.storage_account.shared_access_key_enabled, null)
+  default_to_oauth_authentication   = try(var.storage_account.default_to_oauth_authentication, null)
 
   dynamic "custom_domain" {
     for_each = lookup(var.storage_account, "custom_domain", false) == false ? [] : [1]
