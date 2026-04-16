@@ -46,3 +46,8 @@ variable "virtual_subnets" {
 variable "vnet_integration" {
   default = {}
 }
+variable "public_network_access_enabled" {
+  description = "Should public network access be enabled for this Logic App?"
+  type        = bool
+  default     = true
+}
