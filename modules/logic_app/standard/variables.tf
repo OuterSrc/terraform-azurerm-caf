@@ -49,5 +49,5 @@ variable "vnet_integration" {
 variable "public_network_access_enabled" {
   description = "Should public network access be enabled for this Logic App?"
   type        = bool
-  default     = true
+  default     = false
 }
