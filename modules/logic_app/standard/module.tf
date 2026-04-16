@@ -31,7 +31,7 @@ resource "azurerm_logic_app_standard" "logic_app_standard" {
       use_32_bit_worker_process     = lookup(var.settings.site_config, "use_32_bit_worker_process", null)
       vnet_route_all_enabled        = lookup(var.settings.site_config, "enabled", null)
       websockets_enabled            = lookup(var.settings.site_config, "enabled", null)
-      public_network_access_enabled = var.public_network_access_enabled
+      public_network_access_enabled = false
 
       dynamic "cors" {
         for_each = lookup(var.settings.site_config, "cors", {}) != {} ? [1] : []
