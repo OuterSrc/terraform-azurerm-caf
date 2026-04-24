@@ -28,4 +28,5 @@ variable "custom_bgp_addresses" {
     primary   = string
     secondary = string
   })
+  default = null
 }
