@@ -22,11 +22,3 @@ variable "express_route_circuit_id" {}
 variable "authorization_key" {}
 variable "virtual_network_gateway_id" {}
 variable "local_network_gateway_id" {}
-variable "custom_bgp_addresses" {
-  description = "Custom BGP IP addresses for the connection. Applicable only if enable_bgp is set to true. If not specified, Microsoft will assign the BGP IP addresses."
-  type = object({
-    primary   = string
-    secondary = string
-  })
-  default = null
-}
