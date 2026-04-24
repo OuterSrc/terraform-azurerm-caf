@@ -31,8 +31,7 @@ resource "azurerm_virtual_network_gateway_connection" "vngw_connection" {
   tags                               = local.tags
 
   dynamic "custom_bgp_addresses" {
-    for_each = var.custom_bgp_addresses == null ? [] : [var.custom_bgp_addresses]
-
+    for_each = try(var.settings.custom_bgp_addresses, {})
     content {
       primary   = custom_bgp_addresses.value.primary
       secondary = custom_bgp_addresses.value.secondary
