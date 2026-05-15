@@ -42,9 +42,12 @@ module "virtual_machines" {
   # if boot_diagnostics_storage_account_key is empty string, pass empty string
   # if boot_diagnostics_storage_account_key not defined, pass null
   # otherwise, boot_diagnostics_storage_account_key is a non-empty string that does not reference a valid storage account, so blow-up
-  boot_diagnostics_storage_account = try(local.combined_diagnostics.storage_accounts[each.value.boot_diagnostics_storage_account_key].primary_blob_endpoint,
-    each.value.boot_diagnostics_storage_account_key == "" ? "" : each.value.throw_error,
-  can(tostring(each.value.boot_diagnostics_storage_account_key)) ? each.value.throw_error : null)
+  boot_diagnostics_storage_account = try(
+    each.value.boot_diagnostics.storage_account_uri,
+    local.combined_diagnostics.storage_accounts[each.value.boot_diagnostics_storage_account_key].primary_blob_endpoint,
+    each.value.boot_diagnostics_storage_account_key == "" ? "" : null,
+    null
+  )
 
 }
 
