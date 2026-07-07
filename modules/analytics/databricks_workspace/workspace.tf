@@ -28,14 +28,6 @@ resource "azurerm_databricks_workspace" "ws" {
   network_security_group_rules_required = try(var.settings.network_security_group_rules_required, null)
   customer_managed_key_enabled          = try(var.settings.customer_managed_key_enabled, null)
 
-  dynamic "enhanced_security_compliance" {
-    for_each = try(var.settings.enhanced_security_compliance, null) == null ? [] : [1]
-
-    content {
-      enhanced_security_monitoring_enabled = try(var.settings.enhanced_security_compliance.enhanced_security_monitoring_enabled, null)
-    }
-  }
-
   dynamic "custom_parameters" {
     for_each = try(var.settings.custom_parameters, null) == null ? [] : [1]
 
