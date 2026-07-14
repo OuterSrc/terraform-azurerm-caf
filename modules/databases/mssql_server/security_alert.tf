@@ -24,4 +24,11 @@ resource "azurerm_mssql_server_security_alert_policy" "mssql" {
   email_account_admins       = try(var.settings.email_subscription_admins, false)
   email_addresses            = try(var.settings.email_addresses, null)
   retention_days             = try(var.settings.retention_days, 0)
+
+  lifecycle {
+    ignore_changes = [
+      storage_endpoint,
+      storage_account_access_key,
+    ]
+  }
 }
