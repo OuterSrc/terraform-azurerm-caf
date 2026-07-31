@@ -17,20 +17,22 @@ resource "azurerm_logic_app_standard" "logic_app_standard" {
   storage_account_access_key = local.storage_account.primary_access_key
   https_only                 = lookup(var.settings, "https_only", null)
   app_settings               = local.app_settings
+  version                    = lookup(var.settings, "version", null)
 
   dynamic "site_config" {
     for_each = lookup(var.settings, "site_config", {}) != {} ? [1] : []
 
     content {
-      always_on                 = lookup(var.settings.site_config, "enabled", null)
-      dotnet_framework_version  = lookup(var.settings.site_config, "dotnet_framework_version", null)
-      ftps_state                = lookup(var.settings.site_config, "ftps_state", null)
-      http2_enabled             = lookup(var.settings.site_config, "http2_enabled", null)
-      linux_fx_version          = lookup(var.settings.site_config, "linux_fx_version", null)
-      min_tls_version           = lookup(var.settings.site_config, "min_tls_version", null)
-      use_32_bit_worker_process = lookup(var.settings.site_config, "use_32_bit_worker_process", null)
-      vnet_route_all_enabled    = lookup(var.settings.site_config, "enabled", null)
-      websockets_enabled        = lookup(var.settings.site_config, "enabled", null)
+      always_on                        = lookup(var.settings.site_config, "enabled", null)
+      dotnet_framework_version         = lookup(var.settings.site_config, "dotnet_framework_version", null)
+      ftps_state                       = lookup(var.settings.site_config, "ftps_state", null)
+      http2_enabled                    = lookup(var.settings.site_config, "http2_enabled", null)
+      linux_fx_version                 = lookup(var.settings.site_config, "linux_fx_version", null)
+      min_tls_version                  = lookup(var.settings.site_config, "min_tls_version", null)
+      runtime_scale_monitoring_enabled = lookup(var.settings.site_config, "runtime_scale_monitoring_enabled", null)
+      use_32_bit_worker_process        = lookup(var.settings.site_config, "use_32_bit_worker_process", null)
+      vnet_route_all_enabled           = lookup(var.settings.site_config, "enabled", null)
+      websockets_enabled               = lookup(var.settings.site_config, "enabled", null)
 
       dynamic "cors" {
         for_each = lookup(var.settings.site_config, "cors", {}) != {} ? [1] : []
