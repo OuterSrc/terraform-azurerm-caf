@@ -19,6 +19,14 @@ resource "azurerm_logic_app_standard" "logic_app_standard" {
   app_settings               = local.app_settings
   version                    = lookup(var.settings, "version", null)
 
+  dynamic "identity" {
+    for_each = can(var.settings.identity) ? [var.settings.identity] : []
+
+    content {
+      type = identity.value.type
+    }
+  }
+
   dynamic "site_config" {
     for_each = lookup(var.settings, "site_config", {}) != {} ? [1] : []
 
