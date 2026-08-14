@@ -8,6 +8,13 @@ resource "azurerm_storage_share" "fs" {
   metadata             = try(var.settings.metadata, null)
   enabled_protocol     = try(var.settings.enabled_protocol, null)
 
+  timeouts {
+    create = "30m"
+    read   = "5m"
+    update = "30m"
+    delete = "30m"
+  }
+
   dynamic "acl" {
     for_each = try(var.settings.acl, null) != null ? [var.settings.acl] : []
     content {
